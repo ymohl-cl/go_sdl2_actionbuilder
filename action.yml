@@ -49,3 +49,6 @@ runs:
     - ${{ inputs.path-workdir }}
     - ${{ inputs.docker-name }}
     - ${{ inputs.docker-volume }}
+branding:
+  icon: 'box'  
+  color: 'black'
