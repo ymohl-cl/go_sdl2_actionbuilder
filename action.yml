@@ -1,0 +1,51 @@
+# action.yml
+name: 'go_sdl2-actionbuilder'
+description: 'Git action builder to crossplatform building (OSX, LINUX and WINDOWS) with go_sdl2 (https://github.com/veandco/go-sdl2)'
+inputs:
+  go-version:
+    description: 'go version to use in Docker (docker image: FROM golang:<go-version>)'
+    required: false
+    default: '1.15.2'
+  osx-version:
+    description: 'osx version used to the build'
+    required: false
+    default: '11.0'
+  osx-sdk-link:
+    description: 'link to direct download the osx sdk'
+    required: false
+    default: 'https://github.com/joseluisq/macosx-sdks/releases/download/11.1/MacOSX11.1.sdk.tar.xz'
+  docker-context:
+    description: 'path to the context to forward at go_sdl2_builder docker'
+    required: false
+    default: '.'
+  artifact-name:
+    description: 'folder name to push on the following workflow (ex: binaries file)'
+    required: false
+    default: 'bin'
+  path-workdir:
+    description: 'workdir path to the default sharing volume from github action'
+    required: false
+    default: '/github/workspace'
+  docker-name:
+    description: 'docker name to the container resulting from the build'
+    required: false
+    default: 'go_sdl2_actionbuilder'
+  docker-volume:
+    description: 'docker volume name used by the go sdl2 builder container'
+    required: false
+    default: 'go_sdl2_actionbuilder-volume'
+outputs:
+  config:
+    description: 'return the configuration to build the project'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.go-version }}
+    - ${{ inputs.osx-version }}
+    - ${{ inputs.osx-sdk-link }}
+    - ${{ inputs.docker-context }}
+    - ${{ inputs.artifact-name }}
+    - ${{ inputs.path-workdir }}
+    - ${{ inputs.docker-name }}
+    - ${{ inputs.docker-volume }}

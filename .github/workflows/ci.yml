@@ -1,0 +1,38 @@
+name: 'CI'
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Sources-getter
+      uses: actions/checkout@v2
+
+    - name: go_sdl2-actionbuilder
+      id: go_sdl2-actionbuilder
+      # public state for uses: ymohl-cl/go_sdl2_actionbuilder@<version>
+      uses: ./
+      with:
+        go-version: '1.15.2'
+        docker-context: example
+
+    - name: checker
+      run: |
+        if [ ! -f /github/workspace/bin/go-sdl2-builder.app ]; then
+          echo "failure: binary go-sdl2-builder.app not built !"
+          exit 1
+        fi
+        if [ ! -f /github/workspace/bin/go-sdl2-builder.exe ]; then
+          echo "failure: binary go-sdl2-builder.exe not built !"
+          exit 1
+        fi
+        if [ ! -f /github/workspace/bin/go-sdl2-builder ]; then
+          echo "failure: binary go-sdl2-builder not built !"
+          exit 1
+        fi
+
