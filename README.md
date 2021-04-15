@@ -24,7 +24,7 @@ Github action to crossplatform building with [go_sdl2 veanco](https://github.com
 
 Generate crossplatform binaries to your Go projects using the [go_sdl2 of veanco package](https://github.com/veandco/go-sdl2)
 
-I found very difficult to compile a project from the same environment to the third biggest platforms(windows, osx and linux). It's for this reason that i make it a public git action &nbsp;:blush:&nbsp;. I will be happy if it is useful to you too &nbsp;:grin:&nbsp;
+I found it very difficult to compile a project from the same environment to the three biggest platforms(windows, osx and linux). It's for this reason that i made it a public git action &nbsp;:blush:&nbsp;. I will be happy if it is useful to you too &nbsp;:grin:&nbsp;
 
 ### `Windows building step`
 
@@ -41,9 +41,9 @@ Use the gcc support compiler to windows [mingw-w64](http://mingw-w64.org/doku.ph
 
 ### `OSX building step`
 
-The osx build make it with [osxcross](https://github.com/tpoechtrager/osxcross) and load by default the sdk MacOSX11.1 provide by [Joseluisq](https://github.com/joseluisq/macosx-sdks). Thanks to him &nbsp;:wink:&nbsp;
+The osx builds make it with [osxcross](https://github.com/tpoechtrager/osxcross) and loads by default the sdk MacOSX11.1 provided by [Joseluisq](https://github.com/joseluisq/macosx-sdks). Thanks to him &nbsp;:wink:&nbsp;
 
-If you want use an other SDK or an other link to get it, you could to do it with change [the inputs values](#inputs)
+If you want to use an other SDK or an other link to get it, you could to do it by changing [the inputs values](#inputs)
 
 The lib SDL2 was composed with the original packages from debian distribution
 
@@ -58,12 +58,11 @@ The lib SDL2 was composed with the original packages from debian distribution
 * libsdl2-{ttf, gfx, image, mixer, net}-dev
 
 ### `Binaries result`
+For more details on how change the default configuration check [inputs section](#inputs)
 
-To more details on how change the default configuration check [inputs section](#inputs)
+You need to provide a Makefile with the specific rule: 'ci-build', which makes as you want and will be called just before the artifact saving step.
 
-You need provide a Makefile with the specific rule: 'ci-build' which make as you want and will be call just before the artifact save step.
-
-The logic wants that 'ci-build' run the go build on your project. The following cases works:
+The logic wants that 'ci-build' runs the go build on your project. The following cases works:
 
 ``` bash
 # windows
@@ -174,7 +173,7 @@ config: project will be built with go version $GO_VERSION and the osx's sdk vers
 
 ## Roadmap
 
-For the moment, the build process take a long time. The next step will add a caching layer to docker.
+For the moment, the build process takes long. The next step will be to add a caching layer to docker.
 
 ## Contributing
 
