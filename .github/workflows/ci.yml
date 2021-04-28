@@ -18,7 +18,7 @@ jobs:
       # public state for uses: ymohl-cl/go_sdl2_actionbuilder@<version>
       uses: ./
       with:
-        go-version: '1.15.2'
+        gosdl2-version: '0.0.2'
         docker-context: example
 
     - name: checker

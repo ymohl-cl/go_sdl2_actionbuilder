@@ -5,14 +5,12 @@ Github action to crossplatform building with [go_sdl2 veanco](https://github.com
 ![Build status](https://github.com/ymohl-cl/go_sdl2_actionbuilder/actions/workflows/ci.yml/badge.svg)
 
 [![Sourcegraph](https://sourcegraph.com/github.com/ymohl-cl/go_sdl2_actionbuilder/-/badge.svg?style=flat-square)](https://sourcegraph.com/github.com/ymohl-cl/go_sdl2_actionbuilder?badge)
+[![Marketplace](https://img.shields.io/badge/git%20action-marketplace-informational?style=flat-square)](https://github.com/marketplace/actions/go_sdl2-actionbuilder)
 [![Discord](https://img.shields.io/badge/Discord-%40go_sdl2_action-informational?style=flat-square)](https://discord.gg/UFet9jPxMd)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ymohl-cl/go_sdl2_actionbuilder/main/LICENSE)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ymohl-cl/go_sdl2_actionbuilder/blob/main/LICENSE)
 
 - [Go SDL2 Action-Builder](#go-sdl2-action-builder)
   - [Description](#description)
-    - [`Windows building step`](#windows-building-step)
-    - [`OSX building step`](#osx-building-step)
-    - [`Linux building step`](#linux-building-step)
     - [`Binaries result`](#binaries-result)
   - [Inputs](#inputs)
   - [Outputs](#outputs)
@@ -26,38 +24,17 @@ Generate crossplatform binaries to your Go projects using the [go_sdl2 of veanco
 
 I found it very difficult to compile a project from the same environment to the three biggest platforms(windows, osx and linux). It's for this reason that i made it a public git action &nbsp;:blush:&nbsp;. I will be happy if it is useful to you too &nbsp;:grin:&nbsp;
 
-### `Windows building step`
+The lib SDL2 was composed with the following components:
 
-The lib SDL2 was composed from the [official sources](https://libsdl.org/)
+- image
+- mixer
+- net
+- ttf
 
-Includes components (x86-64 && i686):
-
-* [image](https://www.libsdl.org/projects/SDL_image/)
-* [mixer](https://www.libsdl.org/projects/SDL_mixer/)
-* [net](https://www.libsdl.org/projects/SDL_net/)
-* [ttf](https://www.libsdl.org/projects/SDL_ttf/)
-
-Use the gcc support compiler to windows [mingw-w64](http://mingw-w64.org/doku.php)
-
-### `OSX building step`
-
-The osx builds make it with [osxcross](https://github.com/tpoechtrager/osxcross) and loads by default the sdk MacOSX11.1 provided by [Joseluisq](https://github.com/joseluisq/macosx-sdks). Thanks to him &nbsp;:wink:&nbsp;
-
-If you want to use an other SDK or an other link to get it, you could to do it by changing [the inputs values](#inputs)
-
-The lib SDL2 was composed with the original packages from debian distribution
-
-* libsdl2-dev
-* libsdl2-{ttf, gfx, image, mixer, net}-dev
-
-### `Linux building step`
-
-The lib SDL2 was composed with the original packages from debian distribution
-
-* libsdl2-dev
-* libsdl2-{ttf, gfx, image, mixer, net}-dev
+Detail to [windows context](https://github.com/ymohl-cl/docker/tree/main/gosdl2_windows), [osx context](https://github.com/ymohl-cl/docker/tree/main/osxcross).
 
 ### `Binaries result`
+
 For more details on how change the default configuration check [inputs section](#inputs)
 
 You need to provide a Makefile with the specific rule: 'ci-build', which makes as you want and will be called just before the artifact saving step.
@@ -97,7 +74,7 @@ jobs:
       id: go_sdl2-actionbuilder
       uses: ymohl-cl/go_sdl2_actionbuilder@<version> # or master
         with:
-          go-version: '1.15.2'
+          gosdl2-version: '0.0.1'
 
     - name: checker
       run: ls /github/workspace/bin # default location to find your binaries files
@@ -108,20 +85,10 @@ jobs:
 All inputs are optionnals and default values are define like following (ci past with this values)
 
 ``` yaml
-# go-version to choice a specific golang version image
-# In docker, the image will be start by 'FROM golang:<go-version>'
+# gosdl2-version to choice a specific godl2 version image
+# In docker, the image will be start by 'FROM ymohlcl/gosdl2:<gosdl2-version>'
 # It's for this reason was implemented a docker parametrizable
-go-version: '1.15.2'
-```
-
-``` yaml
-# osx-version used to define the MACOSX_DEPLOYMENT_TARGET and the OSX_VERSION_MIN to osxcross build
-osx-version: '11.0'
-```
-
-``` yaml
-# osx-sdk-link is a direct download link get with wget and put in the tarball folder to osxcross build
-osx-sdk-link: 'https://github.com/joseluisq/macosx-sdks/releases/download/11.1/MacOSX11.1.sdk.tar.xz'
+gosdl2-version: 'latest'
 ```
 
 ``` yaml
@@ -173,7 +140,7 @@ config: project will be built with go version $GO_VERSION and the osx's sdk vers
 
 ## Roadmap
 
-For the moment, the build process takes long. The next step will be to add a caching layer to docker.
+Nothing for now
 
 ## Contributing
 
@@ -191,6 +158,12 @@ For the moment, the build process takes long. The next step will be to add a cac
   - Improve/fix documentation
 
 Thank you &nbsp;:pray:&nbsp;&nbsp;:+1:&nbsp;
+
+<a href="https://github.com/ymohl-cl/go_sdl2_actionbuilder/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ymohl-cl/go_sdl2_actionbuilder" />
+</a>
+
+*Made with [contributors-img](https://contrib.rocks)*
 
 ## Licence
 
